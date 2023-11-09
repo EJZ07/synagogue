@@ -3,11 +3,34 @@ import {
   Links,
   LiveReload,
   Meta,
+  Outlet,
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
+import { useEffect, useState } from "react";
+import type { LinksFunction } from "@remix-run/node";
+import { auth } from "../app/Firebase/firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import appStylesHref from "./app.css";
+import useStyles from "./styles";
+
+export const links: LinksFunction = () => [
+  { rel: "stylesheet", href: appStylesHref },
+];
 
 export default function App() {
+  // console.log(process.env.PROJECT_REMIX_CHAIN)
+  // const [notice, setNotice] = useState("");
+  // try {
+  //   signInWithEmailAndPassword(auth, "email@gmail.com", "21323244").then(() => {
+  //     console.log("SIGNED IN")
+  //   });
+
+  // } catch {
+  //   setNotice("You entered a wrong userrname or password.");
+  // }
+  const className = useStyles()
+
   return (
     <html lang="en">
       <head>
@@ -16,7 +39,8 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body>
+      <body className={className.back}>
+
         <div id="sidebar">
           <h1>Remix Contacts</h1>
           <div>
@@ -34,17 +58,24 @@ export default function App() {
               <button type="submit">New</button>
             </Form>
           </div>
-          <nav>
+          <nav >
             <ul>
               <li>
-                <a href={`/contacts/1`}>Your Name</a>
+                <a style={{ flex: 1 }} href={`/login`}>Login</a>
               </li>
               <li>
-                <a href={`/contacts/2`}>Your Friend</a>
+                <a style={{ flex: 1 }} href={`/home`}>Schedule</a>
               </li>
             </ul>
+
+
           </nav>
         </div>
+
+        <Outlet />
+
+
+
 
         <ScrollRestoration />
         <Scripts />
