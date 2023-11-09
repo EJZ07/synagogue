@@ -1,35 +1,26 @@
 import {
   Form,
+  NavLink,
   Links,
   LiveReload,
   Meta,
   Outlet,
   Scripts,
   ScrollRestoration,
+  useNavigation,
 } from "@remix-run/react";
 import { useEffect, useState } from "react";
 import type { LinksFunction } from "@remix-run/node";
 import { auth } from "../app/Firebase/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import appStylesHref from "./app.css";
-import useStyles from "./styles";
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: appStylesHref },
 ];
 
 export default function App() {
-  // console.log(process.env.PROJECT_REMIX_CHAIN)
-  // const [notice, setNotice] = useState("");
-  // try {
-  //   signInWithEmailAndPassword(auth, "email@gmail.com", "21323244").then(() => {
-  //     console.log("SIGNED IN")
-  //   });
 
-  // } catch {
-  //   setNotice("You entered a wrong userrname or password.");
-  // }
-  const className = useStyles()
 
   return (
     <html lang="en">
@@ -39,32 +30,18 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body className={className.back}>
+      <body >
 
         <div id="sidebar">
           <h1>Remix Contacts</h1>
-          <div>
-            <Form id="search-form" role="search">
-              <input
-                id="q"
-                aria-label="Search contacts"
-                placeholder="Search"
-                type="search"
-                name="q"
-              />
-              <div id="search-spinner" aria-hidden hidden={true} />
-            </Form>
-            <Form method="post">
-              <button type="submit">New</button>
-            </Form>
-          </div>
+    
           <nav >
             <ul>
               <li>
-                <a style={{ flex: 1 }} href={`/login`}>Login</a>
+                <NavLink to="/sign">Login</NavLink>
               </li>
               <li>
-                <a style={{ flex: 1 }} href={`/home`}>Schedule</a>
+                <NavLink to="/home">Schedule</NavLink>
               </li>
             </ul>
 
